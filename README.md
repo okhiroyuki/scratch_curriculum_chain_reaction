@@ -35,7 +35,7 @@ Scratch@MIT 2012 でおこなわれた [Pre-Conference Workshops](http://events.
 
 ## 3. 準備
 ### 3.1. 光センサの回路例
-![](./images/Cds_side.svg)
+![](./images/Cds_side.png)
 
 上記の回路図で使用しているCdsセルが光センサです。
 
@@ -44,7 +44,7 @@ Cdsセル自体が、1MΩの抵抗と等価ですので、片側に５V、片側
 この例では、明るさの変化をArduinoのアナログ0ピン（A0）で計測しています。
 
 ### 3.2. 明るいLEDの回路例
-![](./images/led_side.svg)
+![](./images/led_side.png)
 
 この例では、明るさセンサが反応しやすくなるように、高輝度LEDと低い抵抗（100Ω）を使い、LEDの制御をArduinoのデジタル11ピン（D11）で行っています。
 
