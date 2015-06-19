@@ -4,36 +4,58 @@
 
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.ja"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">スクラッチでピタゴラ装置を作ろう</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">OtOMO</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.ja">Creative Commons 表示 - 継承 3.0 非移植 License</a>.
 
-## 概要
+## 1.概要
 
 Scratch@MIT 2012 でおこなわれた [Pre-Conference Workshops](http://events.scratch.mit.edu/conference/workshops.html)
-のうちのひとつ、Physical-Digital Chain Reaction: WeDo and Scratch を参考にし、OtOMO主催でおこなわれた [9月定期ワークショップ「スクラッチでピタゴラスイッチマシーンを作ろう」](http://scratch-ja.org/2012/08/1815)のために用意したワークショップの手引きです。
+のうちの一つ、Physical-Digital Chain Reaction: WeDo and Scratch を、Scratch2.0とArduinoで実現する方法についてまとめています。
 
-スクラッチになのぼーどAGをつなげ、光センサとLEDの点灯を制御して光のリレーをおこなうことで、テレビ「ピタゴラスイッチ」にでてくるような装置を参加者全員のスクラッチをつなげて作ります。
+具体的には、スクラッチ2.0にArduinoをつなげ、光センサとLEDの点灯を制御して光のリレーをおこなうことで、テレビ「ピタゴラスイッチ」にでてくるような装置を参加者全員のスクラッチをつなげて作るワークショップとなります。
 
-光センサで左隣の人の LED の点灯を受け取ったら、例えば画面左上からボールを転がして画面右下にボールが到達したら LED を点灯させるようなプロジェクトをスクラッチで作って、右隣の人のスクラッチに伝えます。
+本ドキュメントでは、そのワークショップをじっしするにあたって気をつけるべきポイントや必要なモノ、回路図や手順などを、画像や動画を使ってまとめています。
 
-これを全員のスクラッチをつなげておこなうことで、一番左端のマシンから一番右端のマシンまで次々と伝わるピタゴラ装置ンがスクラッチ上に完成します。
+## 2. 必要なもの
+### 2.1. ハードウェア
+* Arduino × 1個
+- 材料例：[Arduino Uno Rev3](https://www.switch-science.com/catalog/789/)
+* ブレッドボード × １個
+- 材料例：[ブレッドボード BB-801](http://akizukidenshi.com/catalog/g/gP-05294/)
+* シャンパーワイヤー（オスーオス） × ５本程度
+- 材料例：[ブレッドボード・ジャンパーコード（オスーオス）セット](http://akizukidenshi.com/catalog/g/gC-05159/)
+* 明るいLED（高輝度LED） × １個
+- 材料例：[超高輝度５ｍｍ緑色ＬＥＤ　ＯＳＧ５８Ａ５１１１Ａ](http://akizukidenshi.com/catalog/g/gI-06405/)
+* Cdsセル（光センサ） × １個
+- 材料例：[ＣｄＳセル（１ＭΩ）ＧＬ５５２８（４個入）](http://akizukidenshi.com/catalog/g/gI-05886/)
+* 抵抗100Ω（330Ωでも可）
+* 抵抗10kΩ
 
-リンク先は、実際のワークショップで完成した作品の動画です。
+### 2.2. ソフトウェア
+* [Scratch2.0 Offline Editor](https://scratch.mit.edu/scratch2download/)
+* [Arduino IDE](http://www.arduino.cc/en/Main/Software)
+* [Scratio](http://lets.makewitharduino.com/sample/scratch/index.html)
 
-&raquo; [Scratch x nanoboard Rube Goldberg machine (OtOMO Workshop)](http://youtu.be/xn45hHlXD4E)
+## 3. 準備
+### 3.1. 光センサの回路例
+![](./images/Cds_side.svg)
 
+上記の回路図で使用しているCdsセルが光センサです。
 
-## 必要なもの
-* なのぼーどAG ([http://tiisai.dip.jp/?page_id=935](http://tiisai.dip.jp/?page_id=935))
-* NanoBoardAGWithMotor (ダウンロードとインストール方法は [http://swikis.ddo.jp/WorldStethoscope/46](http://swikis.ddo.jp/WorldStethoscope/46) を参照してください)
-* LED。+-両端子にリード線を接続、リード線のもう一方にはピンに刺せるよう針金をつける。LED の先端には切ったストローをかぶせると、となりのぼーどの明るさセンサにちょうど接続できる。
+Cdsセル自体が、1MΩの抵抗と等価ですので、片側に５V、片側に10kΩの抵抗を繋ぐことで、分圧抵抗により明るさが計測できます。
 
-![](https://raw.github.com/champierre/scratch_curriculum_chain_reaction/master/led.jpg)
+この例では、明るさの変化をArduinoのアナログ0ピン（A0）で計測しています。
 
-↑LED の先端には切ったストローをかぶせる
+### 3.2. 明るいLEDの回路例
+![](./images/led_side.svg)
 
-![](https://raw.github.com/champierre/scratch_curriculum_chain_reaction/master/led2.jpg)
+この例では、明るさセンサが反応しやすくなるように、高輝度LEDと低い抵抗（100Ω）を使い、LEDの制御をArduinoのデジタル11ピン（D11）で行っています。
 
-↑リード線のもう一方にはピンに刺せるよう針金をつける
+実際には、LEDの点滅を明るさセンサが検出しやすいように、LEDを曲げたりして、明るさセンサに出来るだけ近づけるなどの工夫が必要です。
 
-## 1. アイスブレイク（10分）
+### 3.3. スクラッチ2.0 と Arduino を繋ぐ方法
+
+詳細は、こちらを参考ください。
+
+## 4.ワークショップの手順
+### 4.1. アイスブレイク（10分）
 
 MITのワークショップでおこなわれたアイスブレイクです。
 
@@ -47,60 +69,49 @@ MITのワークショップでおこなわれたアイスブレイクです。
 
 これからつくるピタゴラスイッチマシーンは、同じ要領で動くことをイメージさせることができます。
 
-## 2. 明るさセンサをつかった簡単なプロジェクト（20分）
+### 4.2. Arduinoの接続確認
 
-なのぼーどAG とスクラッチをつなげる。
+Arduino と スクラッチ を繋げ、S2Aを介してうまく接続できているかを確認する。
 
-まずは接続テスト。「調べる」> 「スライダーセンサの値」の横のチェックボックスをチェックしてボードを自動検出させる。
+下記の部分が緑色に点灯していれば、接続できている。
 
-「スライダーセンサの値」上で右クリックして「ScratchBoard監視板の表示」を選ぶ。
+![](./images/connect.png)
 
-スライダーを動かしたり、明るさセンサの上に手をかざしたりして、各センサーの値が変わることを確認する。
+### 4.2. 明るさセンサをつかった簡単なプロジェクト（20分）
 
-明るさによってオンオフされるスイッチをスクラッチ上につくる。
+明るさによって、オン・オフされるスイッチをスクラッチで作ってみる。
 
-![](https://raw.github.com/champierre/scratch_curriculum_chain_reaction/master/light_sensor.gif)
+![](./images/light_sensor.png)
 
-![](https://raw.github.com/champierre/scratch_curriculum_chain_reaction/master/light_sensor_costumes.png)
+![](./images/light_sensor_costumes.png)
 
-## 3. LED を点灯させる簡単なプロジェクト（20分）
-LED につなげたリード線を9番ピンとGNDに接続(9番のほうに長い端子(+))、動きの「モーターをオンにする」と「モーターをオフにする」ブロックで LED を on/off できることを確認する。
+### 3.3. LED を点灯させる簡単なプロジェクト（20分）
 
-![](https://raw.github.com/champierre/scratch_curriculum_chain_reaction/master/led_connection.jpg)
+LEDをオン・オフするスクラッチを作ってみる。
 
-![](https://raw.github.com/champierre/scratch_curriculum_chain_reaction/master/led_connection2.jpg)
+![](./images/led_switch.png)
 
-![](https://raw.github.com/champierre/scratch_curriculum_chain_reaction/master/led_on_off.gif)
-
-このプロックを利用して、ボタンを押したら LED が点灯する簡単なプロジェクトを作成する。
-
-![](https://raw.github.com/champierre/scratch_curriculum_chain_reaction/master/led_switch.gif)
-
-![](https://raw.github.com/champierre/scratch_curriculum_chain_reaction/master/led_switch2.gif)
-
-ボタンのコスチュームには、スクラッチ標準コスチュームから、Things > button を利用する。 
-
-![](https://raw.github.com/champierre/scratch_curriculum_chain_reaction/master/led_switch_costumes.png)
-
-## 4. 上記2. 3.を組み合わせ、手をかざせば LED が点く「超能力マシーン」をつくる（20分）
+## 3.4. 上記2. 3.を組み合わせ、手をかざせば LED が点く「超能力マシーン」をつくる（20分）
 
 時間が足りない場合は省略可能。
 
-![](https://raw.github.com/champierre/scratch_curriculum_chain_reaction/master/force.gif)
+![](./images/force.png)
 
-## 5. ピタゴラ装置をつくる(60分)
+## 3.5. ピタゴラ装置をつくる(60分)
+
 参加者全員の机を輪の形に並べ替える。
 
-左隣の人のなのぼーどから LED を伸ばしてきて、自分の明るさセンサに接続する。
+左隣の人のArduinoから LED を伸ばしてきて、自分の明るさセンサに接続する。
 
-自分の LED を伸ばし右隣の人の明るさセンサと接続する。
+自分の LED を伸ばし、右隣の人の明るさセンサと接続する。
 
 明るさセンサの値が高くなったら左端からボールが転がり始め、右端にボールが着いたら、LED を点灯させるプロジェクトをつくる。
 
-プロジェクト例 明るさセンサの値が高くなると転がり出すボール ↓
-![](https://raw.github.com/champierre/scratch_curriculum_chain_reaction/master/rolling_ball.png)
+プロジェクト例 明るさセンサの値が高くなると転がり出すボール
 
-## 6. テスト(40分)
+![](./images/rolling_ball.png)
+
+### 3.6. テスト(40分)
 まずは自分のプロジェクトがちゃんと動くまでテスト。
 
 次に左隣の人と接続してテスト。
@@ -109,14 +120,14 @@ LED につなげたリード線を9番ピンとGNDに接続(9番のほうに長�
 
 最後に全体で総合テスト。
 
-## 7. 本番(10分)
+### 3.7. 本番(10分)
 スタートのプロジェクトが見える位置に参加者全員移動。
 
 つぎつぎプロジェクトが起動していくに従い移動。
 
 できればビデオ撮影してあとでビデオを公開する。
 
-## 8. 自由製作
+### 3.8. 自由製作
 坂道を玉が転がるプロジェクトを真似してもらい、いちどすべてがうまく動いてから自由製作に入るようにします。
 
 最初(明るさセンサの値で左端よりボールを転がし始める)と最後(右端にボールがたどりついたらLEDを点灯させる)の部分は変更せず、その間はどんな動きをさせてもよいという条件で自由にプロジェクトを変更する。
