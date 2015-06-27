@@ -20,17 +20,37 @@ Scratch@MIT 2012 でおこなわれた [Pre-Conference Workshops](http://events.
 ## 2. 必要なもの
 ### 2.1. ハードウェア
 * Arduino × 1個
-- 材料例：[Arduino Uno Rev3](https://www.switch-science.com/catalog/789/)
+  - 材料例：[Arduino Uno Rev3](https://www.switch-science.com/catalog/789/)
+
+  ![](./images/Arduino_sample.jpg)
+
 * ブレッドボード × １個
-- 材料例：[ブレッドボード BB-801](http://akizukidenshi.com/catalog/g/gP-05294/)
+  - 材料例：[ブレッドボード BB-801](http://akizukidenshi.com/catalog/g/gP-05294/)
+
+  ![](./images/Breadboard_sample.jpg)
+
 * シャンパーワイヤー（オスーオス） × ５本程度
-- 材料例：[ブレッドボード・ジャンパーコード（オスーオス）セット](http://akizukidenshi.com/catalog/g/gC-05159/)
+  - 材料例：[ブレッドボード・ジャンパーコード（オスーオス）セット](http://akizukidenshi.com/catalog/g/gC-05159/)
+
+  ![](./images/Wire_sample.jpg)
+
 * 明るいLED（高輝度LED） × １個
-- 材料例：[超高輝度５ｍｍ緑色ＬＥＤ　ＯＳＧ５８Ａ５１１１Ａ](http://akizukidenshi.com/catalog/g/gI-06405/)
+  - 材料例：[超高輝度５ｍｍ緑色ＬＥＤ　ＯＳＧ５８Ａ５１１１Ａ](http://akizukidenshi.com/catalog/g/gI-06405/)
+
+  ![](./images/led_sample.jpg)
+
 * Cdsセル（光センサ） × １個
-- 材料例：[ＣｄＳセル（１ＭΩ）ＧＬ５５２８（４個入）](http://akizukidenshi.com/catalog/g/gI-05886/)
-* 抵抗100Ω（330Ωでも可）
+  - 材料例：[ＣｄＳセル（１ＭΩ）ＧＬ５５２８（４個入）](http://akizukidenshi.com/catalog/g/gI-05886/)
+
+  ![](./images/Cds_sample.jpg)
+
+* 抵抗100Ω
+
+  ![](./images/R100_sample.jpg)
+
 * 抵抗10kΩ
+
+  ![](./images/R10k_sample.jpg)
 
 ### 2.2. ソフトウェア
 * [Scratch2.0 Offline Editor](https://scratch.mit.edu/scratch2download/)
