@@ -27,7 +27,7 @@ Scratch@MIT 2012 でおこなわれた [Pre-Conference Workshops](http://events.
 * ブレッドボード × １個
   - 材料例：[ブレッドボード BB-801](http://akizukidenshi.com/catalog/g/gP-05294/)
 
-  ![](./images/Breadboard_sample.jpg)
+![](./images/BreadBoard_sample.jpg)
 
 * シャンパーワイヤー（オスーオス） × ５本程度
   - 材料例：[ブレッドボード・ジャンパーコード（オスーオス）セット](http://akizukidenshi.com/catalog/g/gC-05159/)
